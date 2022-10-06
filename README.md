@@ -1,2 +1,1 @@
-# hello-world
-my new repository
+# Javascript code
