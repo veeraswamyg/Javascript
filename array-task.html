@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Task || JavaScript</title>
+</head>
+<body>
+
+    <script>
+        myArr = [32,56,7,2,"Mango","Apple","Orange",true,false];
+        obj = {
+            total:0,
+            text:"",
+            boolean:[]
+        }
+        var strCount = 0;
+        for(let i=0;i<myArr.length;i++) {
+            // console.log(myArr[i])
+            if(typeof myArr[i] === 'number'){
+                obj.total += myArr[i];
+            }else if(typeof myArr[i] === 'string'){
+                if(strCount === 0){
+                    obj.text += myArr[i];
+                }else{
+                    obj.text += ', '+ myArr[i];
+                }
+                strCount++;
+            }else if(typeof myArr[i] === 'boolean'){
+                obj.boolean[obj.boolean.length] = myArr[i];
+            }else{
+                console.log("No matching value found")
+            }
+        }
+
+        // console.log(obj)
+
+    </script>
+    
+</body>
+</html>

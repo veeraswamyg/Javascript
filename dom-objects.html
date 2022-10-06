@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Objects || JavaScript</title>
+</head>
+<body>
+    <div>
+        <input type="number" id="inputTxt">
+        <button type="button" id="btn">add data</button>
+    </div>
+    <ul id="list"></ul>
+
+    <script>
+        const arr = [20,65,90,10];
+        // console.log(arr)
+
+        const btn = document.querySelector('#btn');
+        const ul = document.querySelector("#list");
+        const input = document.querySelector('#inputTxt');
+
+        btn.onclick = function(){
+            let val = +input.value;
+            arr.push(val); // add to last index
+            // console.log(arr)
+
+            input.value = '';
+
+            ul.innerHTML += "<li>"+ val +"</li>";
+        }
+        
+        function bindData(arr){
+            for(let i=0;i<arr.length;i++){
+                ul.innerHTML += "<li>"+ arr[i] +"</li>";
+            }
+        }
+
+        arr.unshift(900); // add to first index
+
+        bindData(arr);
+        arr.pop();
+        console.log(arr)
+
+        
+    </script>
+</body>
+</html>

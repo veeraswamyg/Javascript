@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array forEach behind code || Javascript</title>
+</head>
+<body>
+    <script>
+        /*===================================
+            forEach() Behind code
+        ===================================*/
+        // Syntax:-
+        // Array.forEach(function(elem,index,array){ })
+
+        var arr = [2,5,9];        
+        // arr.forEach(function(el,ind,ar){
+        //     console.log(el)
+        // })
+
+        // Behind code:-
+        Array.prototype.eachOne = function(callback){
+            for(let i=0; i<this.length; i++){
+                callback(this[i],i,this)
+            }
+        }
+
+        arr.eachOne(function(el,ind,ar){
+            // console.log(el)
+        })
+
+        /*===================================
+            find() Behind code
+        ===================================*/
+        const arr2 = [5, 12, 8, 130, 44];
+        // Syntax:-
+        // array.find(function(elem, index, arr){ })
+
+        // const res = arr2.find(function(ele,ind,ar){
+        //     return ele > 10;
+        // });
+        // console.log(res)
+
+        // Behind code:-
+        Array.prototype.findVal = function(callback){
+            for(let i=0; i<this.length; i++){
+                // var val = callback(this[i],i,this)
+                if(callback(this[i],i,this)){
+                    return this[i]
+                }
+            }
+        }
+
+        const res2 = arr2.findVal(function(ele,ind,ar){
+            return ele > 10
+        })
+
+        // console.log(res2)
+
+        /*===================================
+            findIndex() Behind code
+        ===================================*/
+        // Syntax:-
+        // array.findIndex(function(elem, index, arr){ })
+
+        const arr3 = [3, 10, 18, 20];
+        
+        // const res3 = arr3.findIndex(function(ele){
+        //     return ele > 18 // return the matched index value
+        // })
+        // console.log(res3)
+
+        // Behind code:-
+        Array.prototype.findValIndex = function(callback){
+            for(let i=0; i<this.length; i++){
+                if(callback(this[i],i,this)){
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        const res3 = arr3.findValIndex(function(ele,ind,ar){
+            return ele > 21
+        })
+        // console.log(res3)
+
+        /*===================================
+            indexOf() Behind code
+        ===================================*/
+        // Syntax:-
+        // array.indexOf(item, start)
+
+        const animals = ['duck', 'donkey', 2, 'camel', 'monkey', 'camel'];
+        // console.log(animals.indexOf('camel',3))
+        const objs = [
+            {name:'vs', id:1},
+            {name:'ms', id:2},
+            {name:'ch', id:3}
+        ]
+        // Behind code:-
+        Array.prototype.myIndexOf = function(val){
+            for(let i=0; i<this.length; i++){
+                if(val === this[i]){
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        // console.log(animals.myIndexOf(2));
+        // console.log('indexOf ==>',animals.indexOf(2));
+
+        /*===================================
+            lastIndexOf() Behind code
+        ===================================*/
+        // Syntax:-
+        // array.lastIndexOf(item, start)
+
+        const fruits = ["Orange","Apple","Mango","Apple","Banana","Apple"];
+        const myArr = [5, 2, 8, 7, 9];
+
+        // Behind code:-
+        Array.prototype.myLastIndexOf = function(val){
+            for(let i = this.length; i >= 0; i--){
+                if(val === this[i]){
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        // console.log(fruits.myLastIndexOf("Mango"))
+        // console.log('original ==>',fruits.lastIndexOf("Mango"))
+
+
+        /*===================================
+            filter() Behind code
+        ===================================*/
+        // Syntax:-
+        // array.filter(function(elem, index, arr){ })
+        const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+
+        Array.prototype.myFilter = function(callback){
+            const filteredArr = [];
+            for(var i=0;i<this.length;i++){
+                let isVal = callback(this[i],i,this);
+                if(isVal){
+                    // filteredArr.push(this[i]);
+                    filteredArr[filteredArr.length] = this[i];
+                }
+            }
+            return filteredArr;
+        }
+        const result = words.myFilter(function(ele,ind,ar){
+            return ele.length > 4;
+        })
+        
+
+        const result2 = words.filter(function(ele, ind, ar){
+            return ele.length > 4;
+        })
+
+        // console.log(result)
+        // console.log('original=>',result2)
+
+        /*===================================
+            map() Behind code
+        ===================================*/
+        // Syntax:-
+        // array.map(function(elem, index, arr){ })
+
+        var arr4 = [4,3,5,8,9,7,2];
+        Array.prototype.myMap = function(callback){
+            if(typeof callback !== 'function'){
+                throw new Error(callback + ' is not a function');
+            }
+            let i=0;
+            const mapAr = [];
+            while(i<this.length){
+                let val = callback(this[i],i,this);
+                // mapAr.push(val); OR
+                mapAr[mapAr.length] = val;
+                i++;
+            }
+            return mapAr;
+        }
+        var arVal = arr4.myMap(function(ele,ind,ar){
+            return {
+                value:ele,
+                id:ind + 1
+            }
+        })
+        // console.log(arVal)
+
+        // map() original
+        var arVal2 = arr4.map(function(ele,ind,ar){
+            return {
+                value:ele,
+                id:ind + 1
+            }
+        })
+        // console.log('original=>',arVal2)
+
+        //map() method error throw
+        // var arVal3 = arr4.map('something text here'); // Error
+        // console.log(arVal3)
+
+
+        /*===================================
+            reduce() Behind code
+        ===================================*/
+        // Syntax:-
+        // array.reduce(function(initialValue, elem, index, arr){ })
+
+        var arr5 = [4,3,5,8,9,7,2];
+
+        Array.prototype.myReduce = function(callback,initialVal) {
+            if(typeof callback !== 'function'){
+                throw new Error(callback + ' is not a function');
+            }
+            var val = (initialVal === undefined || initialVal === null || initialVal === '') ? this[0] : initialVal;
+            let i = 0;
+            while(i < this.length){
+                val = callback(val, this[i],i,this);
+                i++;
+            }
+            return val;
+        }
+
+        var total2 = arr5.myReduce(function(x,ele,ind,ar){
+            return x + ele;
+        },0);
+        // console.log(total2)
+
+        var total = arr5.reduce(function(x,ele,ind,ar){
+            return x + ele;
+        },0);
+        // console.log(total)
+
+        /*===================================
+            pop() Behind code
+        ===================================*/
+        // Syntax:-
+        // array.pop() method removes the last item of an array.
+
+        var arr6 = [4,3,5,8,2,9,7,6];
+        Array.prototype.myPop = function(){
+            let lastInd = this[this.length-1];
+            delete this[this.length-1];
+            this.length = this.length - 1;
+
+            return lastInd;
+        }
+        var resMyPop = arr6.myPop();
+        var resMyPop = arr6.myPop();
+        var resMyPop = arr6.myPop();
+        // console.log(arr6)
+        // console.log(resMyPop)
+
+        // var res6 = arr6.pop();
+        // console.log(res6)
+
+        /*===================================
+            shift() Behind code
+        ===================================*/
+        // Syntax:-
+        // array.shift() method removes the first item of an array.
+        Array.prototype.myShift = function(){
+            let firstVal = this[0];
+            let i = 1;
+            while(i<this.length){
+                this[i - 1] = this[i];
+                i++;
+            }
+            return firstVal;
+        }
+        var shiftArr = [4,3,2,1,5,7,9,8];
+        var fVal = shiftArr.myShift();
+        // console.log(shiftArr)
+        // console.log(fVal)
+        
+        var shiftArr2 = [4,3,2,1,5,7,9,8];
+        var fVal2 = shiftArr2.shift();
+        // console.log(shiftArr2)
+        // console.log(fVal2)
+
+
+        /*===================================
+            unshift() Behind code
+        ===================================*/
+        // Syntax:-
+        // array.unshift(item1, item2, ..., itemX) 
+        // method adds new elements to the beginning of an array.
+
+        Array.prototype.myUnshift = function(){
+
+        }
+        var unshiftArr = [8,9,2,5,7,6,3,4,1];
+        var r = unshiftArr.unshift(10);
+        // console.log(unshiftArr)
+        // console.log(r)
+
+        /*===================================
+            reverse() Behind code
+        ===================================*/
+        // Syntax:-
+        // array.reverse()
+
+        Array.prototype.myReverse = function(){
+            let ar = [];
+            for(let i=this.length-1; i>=0; i--){
+                ar[ar.length] = this[i];
+            }
+            for(let i=0; i<ar.length; i++){
+                this[i] = ar[i];
+            }
+            return this;
+        }
+
+        Array.prototype.myReverse2 = function(){
+            let ar = [...this];
+            let ind = 0;
+            for(let i=ar.length-1; i>=0; i--){
+                this[ind] = ar[i];
+                ind++;
+            }
+            return this;
+        }
+
+        Array.prototype.myRev = function(){
+            let len = Math.floor(this.length/2);
+            for(let i=this.length-1; i>0; i--){
+                if(len <= i ) {
+                    let fInd = ((this.length - 1) - i);
+                    let fVal = this[fInd];
+                    this[fInd] = this[i];
+                    this[i] = fVal;
+                }else {
+                    break;
+                }
+            }
+        }
+
+        var fruit_list = ['banana','apple','orange','sitaphal'];
+        // console.log(fruit_list.reverse());
+        // console.log('orinalAr: ',fruit_list)
+        // console.log(fruit_list.myReverse2())
+        fruit_list.myRev();
+
+        console.log(fruit_list)
+
+    </script>
+</body>
+</html>

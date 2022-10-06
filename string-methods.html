@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Methods || JavaScript</title>
+</head>
+<body>
+
+    <script>
+        const str = new String('my name');
+        // console.log(str)
+        // ==== Tasks 1 ================================
+        var urls = [
+            'https://www.test.com/images/profile.jpg',
+            'https://www.test.com/images/profile2.png',
+            'https://www.test.com/images/profile3.gif',
+        ]
+        // Output:
+        // var images = getImagesNames(urls);
+        // [
+        //     'profile.jpg',
+        //     'profile2.png',
+        //     'profile3.gif',
+        // ]
+
+        function getImagesNames(ar){
+            let val = ar.map(function(ele){ //map gives new array
+                let ind = ele.lastIndexOf('/');
+                return ele.slice(ind + 1);
+            })
+            return val;
+        }
+        const images = getImagesNames(urls);
+        // console.log(images)
+
+        // ==== Tasks 2 ====================================
+
+        const url = 'https://www.test.com/api/product?name=notebook&id=2&category=book';
+
+        // output: {
+        //     name: 'notebook',
+        //     id: '2',
+        //     category: 'book'
+        // }
+
+        var urlData = url.split('?');
+        var urlStrData = urlData[1].split('&');
+        var obj = urlStrData.reduce(function(x,ele){
+            let strVal = ele.split('=');
+            x[strVal[0]] = strVal[1];
+            return x;
+        },{})
+
+        console.log(obj)
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array filter Task || JavaScript</title>
+    <style>
+        #list{border:1px solid tomato;width:300px;min-height: 100px;background-color: tomato;}
+        #list li{margin:5px;}
+        .error{color:red;display:none}
+    </style>
+</head>
+<body>
+    <div style="margin-bottom:10px">
+        <input id="textInput" type="text" placeholder="add item">
+        <button id="add" type="button">Add</button>
+    </div>
+    <p class="error">Duplicate value not allowed</p>
+    <input id="filterInput" type="text" placeholder="filter item">
+    <ul id="list">
+
+    </ul>
+    <script>
+        var addBtn = document.querySelector('#add');
+        var textInput = document.querySelector('#textInput');
+        var filterInput = document.querySelector('#filterInput');
+        var ul = document.querySelector('#list');
+        var error = document.querySelector('.error');
+
+        var arr = [];
+
+        function addRecord(){
+            let val = textInput.value || '';
+            let valInd = arr.findIndex(function(e){
+                e.toLowerCase() === val.toLowerCase();
+            })
+            if(valInd > -1){
+                error.style.display = 'block';
+                return;
+            }
+            error.style.display = 'none';
+
+            arr.push(val);
+            console.log(arr)
+            textInput.value = '';
+            bindData(arr);
+        }
+        addBtn.onclick = addRecord;
+
+        function bindData(ar){
+            let ul = document.querySelector('#list');
+            ul.innerHTML = '';
+            ar.forEach(function(el){
+                ul.innerHTML += '<li>'+el+'</>';
+            })
+        }
+            
+        filterInput.onkeyup = function(){
+            let inputEle = this.value || '';
+            let filteredArr = arr.filter(function(ele){
+                if(!inputEle){
+                    return true;
+                }
+                return ele.toLowerCase().indexOf(inputEle.toLowerCase()) > -1;
+            })
+            bindData(filteredArr);
+        }
+    </script>
+</body>
+</html>

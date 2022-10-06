@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Sort Task || JavaScript</title>
+</head>
+<body>
+    <button id="btn" type="button">sort asc/dsc</button>
+    <ul id="list">
+
+    </ul>
+    <script>
+        var btn = document.querySelector('#btn');
+        var list = document.querySelector('#list');
+
+        var arr = [
+            {name:'name 1', id:1},
+            {name:'name 3', id:3},
+            {name:'name 2', id:2},
+            {name:'name 4', id:4},
+            {name:'name 6', id:6},
+            {name:'name 5', id:5}
+        ];
+
+        function dataBinding(ar){
+            list.innerHTML = '';
+            ar.forEach((ele)=>{
+                list.innerHTML += '<li>'+'name: '+ele.name+', '+'id: '+ele.id+'</li>';
+            })
+        }
+        dataBinding(arr);
+
+        function sortData(ar,prop,sortType){
+            list.innerHTML = '';
+            ar.sort((a,b)=>{
+                if(a[prop] > b[prop]){
+                    return sortType === 'asc' ? 1 : -1;
+                }else if(a[prop] < b[prop]) {
+                    return sortType === 'asc' ? -1 : 1;
+                }else{
+                    return 0;
+                }
+            })
+            dataBinding(ar);
+        }
+
+        var isAscDsc = 'dsc';
+        btn.onclick = function(){
+            if(isAscDsc === 'asc'){
+                isAscDsc = 'dsc';
+            }else{
+                isAscDsc = 'asc';
+            }
+            sortData(arr,'id',isAscDsc);
+        }
+        
+        
+    </script>
+    
+</body>
+</html>
