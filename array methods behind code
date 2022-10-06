@@ -1,78 +1,91 @@
-const arr = [2,5,3,7,81,9,4,1,6];
-const arMap = arr.map((ele,ind,ar)=>{
-    return {
-        Name:'name '+ ele,
-        id: ind + 1
-    }
-})
-// console.log(arMap)
-// console.log(arr)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Methods || JavaScript</title>
+</head>
+<body>
+    <script>
+        const arr = [2,5,3,7,81,9,4,1,6];
+        const arMap = arr.map((ele,ind,ar)=>{
+            return {
+                Name:'name '+ ele,
+                id: ind + 1
+            }
+        })
+        // console.log(arMap)
+        // console.log(arr)
 
-//=== reduce ===
-const tot = arr.reduce((x,ele,ind,ar)=>{
-    x = x + ele;
-    return x;
-}, 0)
+        //=== reduce ===
+        const tot = arr.reduce((x,ele,ind,ar)=>{
+            x = x + ele;
+            return x;
+        }, 0)
 
-// console.log(tot) tot = 118
+        // console.log(tot) tot = 118
 
-let shoppingCart = [
-    {
-        product: 'phone',
-        qty: 1,
-        price: 500,
-    },
-    {
-        product: 'Screen Protector',
-        qty: 1,
-        price: 10,
-    },
-    {
-        product: 'Memory Card',
-        qty: 2,
-        price: 20,
-    }
-];
+        let shoppingCart = [
+            {
+                product: 'phone',
+                qty: 1,
+                price: 500,
+            },
+            {
+                product: 'Screen Protector',
+                qty: 1,
+                price: 10,
+            },
+            {
+                product: 'Memory Card',
+                qty: 2,
+                price: 20,
+            }
+        ];
 
-const cartTotal = shoppingCart.reduce((x,ele,ind,ar)=>{
-    return x + ele.qty * ele.price;
-}, 0)
+        const cartTotal = shoppingCart.reduce((x,ele,ind,ar)=>{
+            return x + ele.qty * ele.price;
+        }, 0)
 
-// console.log(cartTotal) //cartTotal = 550
-// console.log(shoppingCart)
+        // console.log(cartTotal) //cartTotal = 550
+        // console.log(shoppingCart)
 
-const myArr = [[1,2,3],[4,5,6],[7,8,9]];
-const singleArr = myArr.reduce((x,ele)=>{
-    return x.concat(ele);
-},[])
-// console.log(singleArr)
+        const myArr = [[1,2,3],[4,5,6],[7,8,9]];
+        const singleArr = myArr.reduce((x,ele)=>{
+            return x.concat(ele);
+        },[])
+        // console.log(singleArr)
 
-//=== task ===
-const ar = [4,3,8,'Banana','Orange',45,true,[1,2,3],[4,5,6]];
-//output:
-//  {
-//     total: 0,
-//     text:'',
-//     bool:[],
-//     arrVal:[]
-// }
-const res = ar.reduce((x,ele)=>{
-    if(typeof ele === 'number'){
-        x.total += ele;
-    }else if(typeof ele === 'string'){
-        x.text += x.isString ? ','+ele : ele;
-        x.isString = true;
-    }else if(typeof ele === 'boolean'){
-        x.bool.push(ele)
-    }else if(typeof ele === 'object' && Array.isArray(ele)){
-        x.arrVal = x.arrVal.concat(ele)
-    }
-    return x;
-},{
-    total: 0,
-    text:'',
-    bool:[],
-    arrVal:[],
-    isString: false
-});
-console.log(res)
+        //=== task ===
+        const ar = [4,3,8,'Banana','Orange',45,true,[1,2,3],[4,5,6]];
+        //output:
+        //  {
+        //     total: 0,
+        //     text:'',
+        //     bool:[],
+        //     arrVal:[]
+        // }
+        const res = ar.reduce((x,ele)=>{
+            if(typeof ele === 'number'){
+                x.total += ele;
+            }else if(typeof ele === 'string'){
+                x.text += x.isString ? ','+ele : ele;
+                x.isString = true;
+            }else if(typeof ele === 'boolean'){
+                x.bool.push(ele)
+            }else if(typeof ele === 'object' && Array.isArray(ele)){
+                x.arrVal = x.arrVal.concat(ele)
+            }
+            return x;
+        },{
+            total: 0,
+            text:'',
+            bool:[],
+            arrVal:[],
+            isString: false
+        });
+        console.log(res)
+    </script>
+</body>
+</html>
